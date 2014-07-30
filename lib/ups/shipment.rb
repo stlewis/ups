@@ -41,7 +41,7 @@ module UPS
     end
 
     def validate_delivery_address=(should_validate)
-      @options[:request] || = {request_action: 'ShipConfirm'}
+      @options[:request] ||= {request_action: 'ShipConfirm'}
       @options[:request][:request_option] = should_validate ? 'validate' : 'nonvalidate'
     end
 
