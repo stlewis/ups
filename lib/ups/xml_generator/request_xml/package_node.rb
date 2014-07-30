@@ -14,8 +14,8 @@ module UPS
   
             xml << ReferenceNumberNode.new(@reference_number).to_xml if @reference_number
             xml << PackagingTypeNode.new(@packaging_type).to_xml
-            xml << PackagingDimensionsNode.new(@package_dimensions).to_xml
-            xml << PackageWeightNode.new(@package_weight).to_xml
+            xml << PackagingDimensionsNode.new(@package_dimensions).to_xml if @package_dimensions
+            xml << PackageWeightNode.new(@package_weight).to_xml if @package_weight
             xml << PackageServiceOptionsNode.new(@package_service_options).to_xml unless @package_service_options.nil?
           }
         end
