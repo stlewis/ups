@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'ups/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "UPS"
+  spec.name          = "ups"
   spec.version       = UPS::VERSION
   spec.authors       = ["Steve Lewis"]
   spec.email         = ["steve.lewis@moduspowered.com"]
