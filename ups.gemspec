@@ -8,8 +8,7 @@ Gem::Specification.new do |spec|
   spec.version       = UPS::VERSION
   spec.authors       = ["Steve Lewis"]
   spec.email         = ["steve.lewis@moduspowered.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{Wrapper around the UPS label creation XML API}
   spec.homepage      = ""
   spec.license       = "MIT"
 
