@@ -2,7 +2,7 @@ module UPS
   module RequestXML
 
     class ShipFromNode < Base
-
+      attr_reader :company_name, :attention_name, :tax_id_number, :phone_number, :fax_number, :email_address, :address
 
       def to_xml
         request = Nokogiri::XML::Builder.new do |xml|
@@ -14,7 +14,7 @@ module UPS
             xml.PhoneNumber @phone_number              unless @phone_number.nil?
             xml.FaxNumber @fax_number                  unless @fax_number.nil?
             xml.EMailAddress @email_address            unless @email_address.nil?
-            xml << AddressNode.new(@address).to_xml    
+            xml << AddressNode.new(@address).to_xml
           }
 
         end

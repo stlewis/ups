@@ -4,7 +4,7 @@ module UPS
     class AddressNode < Base
       attr_reader :address_line1, :address_line2, :address_line3, :city, :state, :postal_code, :country_code, :is_residential
 
-      def to_xml(root_node)
+      def to_xml(root_node = 'Address')
       
         request = Nokogiri::XML::Builder.new do |xml|
           xml.send(root_node) {

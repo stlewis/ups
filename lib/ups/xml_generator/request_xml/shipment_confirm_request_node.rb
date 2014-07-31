@@ -19,7 +19,8 @@ module UPS
         packages.each do |package|
           shipment_nodes << RequestXML::PackageNode.new(package)
         end                                                           # description, documents_only
-        shipment_node = RequestXML::ShipmentNode.new(shipment_nodes, options[:shipment]) 
+        shipment_options = options[:shipment] || {}
+        shipment_node    = RequestXML::ShipmentNode.new(shipment_nodes, shipment_options) 
         
         @scr_nodes    = []
         @scr_nodes    << shipment_node

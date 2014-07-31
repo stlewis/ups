@@ -48,9 +48,11 @@ module UPS
     def create
       @access_request_node           = UPS::RequestXML::AccessRequestNode.new(@credentials)
       @shipment_confirm_request_node = UPS::RequestXML::ShipmentConfirmRequestNode.new(@packages, @options)
+      puts @shipment_confirm_request_node.to_xml
       
       raw_response  = send_request(API_URL + '/ShipConfirm', @shipment_confirm_request_node)
       response      = ConfirmResponse.new(raw_response)
+      puts response.xml.to_s
 
       if response.successful?
         @shipment_accept_request_node = RequestXML::ShipmentAcceptRequestNode.new(response.digest)
@@ -62,6 +64,7 @@ module UPS
          return true
         end
       else
+        raise "Something went wrong..."
         # FIXME Handle errors
       end
     end
