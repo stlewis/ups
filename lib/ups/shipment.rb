@@ -1,10 +1,9 @@
-require 'base64'
 module UPS
 
   class Shipment
     API_URL = 'https://wwwcie.ups.com/ups.app/xml'
 
-    attr_reader :label_image
+    attr_reader :label_image, :html_image, :response_xml
 
     def initialize(credentials, packages = [], options = {})
       @credentials           = credentials
@@ -48,11 +47,9 @@ module UPS
     def create
       @access_request_node           = UPS::RequestXML::AccessRequestNode.new(@credentials)
       @shipment_confirm_request_node = UPS::RequestXML::ShipmentConfirmRequestNode.new(@packages, @options)
-      puts @shipment_confirm_request_node.to_xml
       
       raw_response  = send_request(API_URL + '/ShipConfirm', @shipment_confirm_request_node)
       response      = ConfirmResponse.new(raw_response)
-      puts response.xml.to_s
 
       if response.successful?
         @shipment_accept_request_node = RequestXML::ShipmentAcceptRequestNode.new(response.digest)
@@ -60,11 +57,12 @@ module UPS
         response     = AcceptResponse.new(raw_response)
         
         if response.successful?
-         @label_image = Base64::decode64(response.label_image)
+         @label_image = response.label_image
+         @html_image  = response.html_image
          return true
         end
       else
-        raise "Something went wrong..."
+        raise response.raw_response
         # FIXME Handle errors
       end
     end

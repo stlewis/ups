@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'base64'
 
 
 describe UPS::Shipment do
@@ -8,6 +9,7 @@ describe UPS::Shipment do
       package         = {
                           reference_number: {code: 'SE', value: '27030483028402384'},
                           packaging_type: {code: '02'},
+                          package_weight: {code: 'LBS', weight: '1'},
                           description: "Calamp LMU3030"
                         }
       shipment_params = {
@@ -41,7 +43,6 @@ describe UPS::Shipment do
 
                           ship_from: {
                                      company_name: 'Jacqapo Smegeddly', 
-                                     attention_name: "Esurance Returns",
                                      address: {
                                                 address_line1: '1624 4th St.', 
                                                 city: 'Madison',
@@ -65,7 +66,7 @@ describe UPS::Shipment do
       packages = [package]
       shipment = UPS::Shipment.new(credentials, packages, shipment_params)
       result   = shipment.create
-      p result.label_image
+      File.write '/Users/stlewis/Projects/scratch/label.html', Base64::decode64(shipment.html_image)
   end
 
 
