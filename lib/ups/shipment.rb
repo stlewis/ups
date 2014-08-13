@@ -3,7 +3,7 @@ module UPS
   class Shipment
     API_URL = 'https://wwwcie.ups.com/ups.app/xml'
 
-    attr_reader :label_image, :html_image, :response_xml
+    attr_reader :label_image, :html_image, :response_xml, :response
 
     def initialize(credentials, packages = [], options = {})
       @credentials           = credentials
@@ -49,20 +49,20 @@ module UPS
       @shipment_confirm_request_node = UPS::RequestXML::ShipmentConfirmRequestNode.new(@packages, @options)
       
       raw_response  = send_request(API_URL + '/ShipConfirm', @shipment_confirm_request_node)
-      response      = ConfirmResponse.new(raw_response)
+      @response      = ConfirmResponse.new(raw_response)
 
-      if response.successful?
+      if @response.successful?
         @shipment_accept_request_node = RequestXML::ShipmentAcceptRequestNode.new(response.digest)
         raw_response = send_request(API_URL + '/ShipAccept', @shipment_accept_request_node)
-        response     = AcceptResponse.new(raw_response)
+        @response     = AcceptResponse.new(raw_response)
         
-        if response.successful?
+        if @response.successful?
          @label_image = response.label_image
          @html_image  = response.html_image
          return true
         end
       else
-        raise response.raw_response
+        raise @response.raw_response
         # FIXME Handle errors
       end
     end

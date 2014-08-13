@@ -4,7 +4,7 @@ module UPS
     class LabelSpecificationNode < Base
       PRINT_METHOD_CODES = ['GIF', 'EPL', 'ZPL', 'STARPL', 'SPL']
 
-      attr_reader :code
+      attr_reader :code, :label_width
          
 
 

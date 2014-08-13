@@ -19,8 +19,10 @@ module UPS
     end
 
     def html_image
+      node = @xml.at('/ShipmentAcceptResponse/ShipmentResults/PackageResults/LabelImage/HTMLImage')
+      return nil unless node
       # We need to interpolate the image into the HTML, otherwise, it's using a relative file source...
-      base64  = @xml.at('/ShipmentAcceptResponse/ShipmentResults/PackageResults/LabelImage/HTMLImage').content
+      base64  = node.content
       decoded = Base64::decode64(base64)
       html = Nokogiri::HTML(decoded, nil, 'utf-8')
       html.at('//img')['src'] = "data:image/gif;base64,#{label_image}"
