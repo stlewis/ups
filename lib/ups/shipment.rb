@@ -1,7 +1,6 @@
 module UPS
 
-  class Shipment
-    API_URL = 'https://wwwcie.ups.com/ups.app/xml'
+  class Shipment < Request
 
     attr_reader :label_image, :html_image, :response_xml, :response
 
@@ -66,17 +65,6 @@ module UPS
         # FIXME Handle errors
       end
     end
-
-
-    private
-
-      def send_request(url, payload)
-        full_request = @access_request_node.to_xml.to_s + payload.to_xml.to_s 
-        uri          = URI.parse(url)
-        http         = ::Net::HTTP.new(uri.host, 443)
-        http.use_ssl = true
-        http.post(uri.request_uri, full_request).body
-      end
   
   end
 
