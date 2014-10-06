@@ -10,6 +10,7 @@ module UPS
 
       def send_request(url, payload)
         full_request = @access_request_node.to_xml.to_s + payload.to_xml.to_s 
+
         uri          = URI.parse(url)
         http         = ::Net::HTTP.new(uri.host, 443)
         http.use_ssl = true

@@ -13,7 +13,6 @@ module UPS
       
       raw_response               = send_request(API_URL + '/XAV', @address_validation_node)
       @response                  = AddressValidationResponse.new(raw_response)
-      p @response.raw_response
       return @response.valid_address? if @response.successful?
       raise @response.raw_response 
     end
