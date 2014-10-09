@@ -2,8 +2,13 @@ module UPS
   class Request
     API_URL = 'https://wwwcie.ups.com/ups.app/xml'
 
-    def initialize(credentials, address = {})
+    def initialize(credentials, api_options = {})
       @credentials = credentials
+      @env = api_options[:env]
+    end
+
+    def api_url
+      @env == 'development' ? 'https://wwwcie.ups.com/ups.app/xml' : 'https://onlinetools.ups.com/ups.app/xml'
     end
 
     protected

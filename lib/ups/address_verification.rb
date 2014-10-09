@@ -1,8 +1,8 @@
 module UPS
   class AddressVerification < Request
 
-    def initialize(credentials, address = {})
-      @credentials = credentials
+    def initialize(credentials, address = {}, api_options = {})
+      super(credentials, api_options)
       @address     = address
       
     end

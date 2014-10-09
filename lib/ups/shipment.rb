@@ -4,8 +4,8 @@ module UPS
 
     attr_reader :label_image, :html_image, :response_xml, :response
 
-    def initialize(credentials, packages = [], options = {})
-      @credentials           = credentials
+    def initialize(credentials, packages = [], options = {}, api_options = {})
+      super(credentials, api_options)
       @options               = options
       @packages              = packages
     end
