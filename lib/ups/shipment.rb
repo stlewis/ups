@@ -47,7 +47,7 @@ module UPS
       @access_request_node           = UPS::RequestXML::AccessRequestNode.new(@credentials)
       @shipment_confirm_request_node = UPS::RequestXML::ShipmentConfirmRequestNode.new(@packages, @options)
       
-      raw_response  = send_request(API_URL + '/ShipConfirm', @shipment_confirm_request_node)
+      raw_response  = send_request(api_url + '/ShipConfirm', @shipment_confirm_request_node)
       @response      = ConfirmResponse.new(raw_response)
 
       if @response.successful?
