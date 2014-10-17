@@ -1,6 +1,5 @@
 module UPS
   class Request
-    API_URL = 'https://wwwcie.ups.com/ups.app/xml'
 
     def initialize(credentials, api_options = {})
       @credentials = credentials

@@ -11,7 +11,7 @@ module UPS
       @access_request_node       = UPS::RequestXML::AccessRequestNode.new(@credentials)
       @address_validation_node   = UPS::RequestXML::AddressValidationRequestNode.new(@address)
       
-      raw_response               = send_request(API_URL + '/XAV', @address_validation_node)
+      raw_response               = send_request(api_url + '/XAV', @address_validation_node)
       @response                  = AddressValidationResponse.new(raw_response)
       return @response.valid_address? if @response.successful?
       raise @response.raw_response 

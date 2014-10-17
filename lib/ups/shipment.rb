@@ -52,7 +52,7 @@ module UPS
 
       if @response.successful?
         @shipment_accept_request_node = RequestXML::ShipmentAcceptRequestNode.new(response.digest)
-        raw_response = send_request(API_URL + '/ShipAccept', @shipment_accept_request_node)
+        raw_response = send_request(api_url + '/ShipAccept', @shipment_accept_request_node)
         @response     = AcceptResponse.new(raw_response)
         
         if @response.successful?
