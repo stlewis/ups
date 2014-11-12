@@ -21,7 +21,5 @@ module UPS
         http.post(uri.request_uri, full_request).body
       end
 
-
-
   end
 end
