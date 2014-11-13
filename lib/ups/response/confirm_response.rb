@@ -16,6 +16,10 @@ module UPS
       @xml.at('/ShipmentConfirmResponse/ShipmentDigest').content
     end
 
+    def error_message
+      @xml.at('/ShipmentConfirmResponse/Response/Error/ErrorDescription')
+    end
+
     def successful?
       @xml.at('/ShipmentConfirmResponse/Response/ResponseStatusCode').content == '1'
     end

@@ -29,7 +29,6 @@ module UPS
       return Base64::encode64(html.to_s)
     end
 
-    
     def successful?
       @xml.at('/ShipmentAcceptResponse/Response/ResponseStatusCode').content == '1'
     end

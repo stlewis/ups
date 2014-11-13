@@ -2,7 +2,7 @@ module UPS
 
   class Shipment < Request
 
-    attr_reader :label_image, :html_image, :response_xml, :response
+    attr_reader :label_image, :html_image, :response_xml, :response, :shipping_errors
 
     def initialize(credentials, packages = [], options = {}, api_options = {})
       super(credentials, api_options)
@@ -56,13 +56,13 @@ module UPS
         @response     = AcceptResponse.new(raw_response)
         
         if @response.successful?
-         @label_image = response.label_image
-         @html_image  = response.html_image
-         return true
+          @label_image = response.label_image
+          @html_image  = response.html_image
+          return true
         end
       else
-        raise @response.raw_response
-        # FIXME Handle errors
+        @shipping_errors = @response.error_message.content if @response.error_message
+        raise @response.raw_response if @shipping_errors.nil?
       end
     end
   
