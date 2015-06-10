@@ -62,7 +62,7 @@ module UPS
         end
       else
         @shipping_errors = @response.error_message.content if @response.error_message
-        raise @response.raw_response if @shipping_errors.nil?
+        raise @response.raw_response unless @shipping_errors.nil?
       end
     end
   
