@@ -17,7 +17,7 @@ module UPS
     end
 
     def error_message
-      @xml.at('/ShipmentConfirmResponse/Response/Error/ErrorDescription')
+      @xml.at('/ShipmentConfirmResponse/Response/Error/ErrorDescription').content
     end
 
     def successful?
