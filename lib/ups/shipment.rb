@@ -2,7 +2,7 @@ module UPS
 
   class Shipment < Request
 
-    attr_reader :label_image, :html_image, :response_xml, :response, :shipping_errors
+    attr_reader :label_image, :html_image, :response_xml, :response, :shipping_errors, :request_xml
 
     def initialize(credentials, packages = [], options = {}, api_options = {})
       super(credentials, api_options)
@@ -46,6 +46,7 @@ module UPS
     def create
       @access_request_node           = UPS::RequestXML::AccessRequestNode.new(@credentials)
       @shipment_confirm_request_node = UPS::RequestXML::ShipmentConfirmRequestNode.new(@packages, @options)
+      @request_xml = @shipment_confirm_request_node.to_xml
       
       raw_response  = send_request(api_url + '/ShipConfirm', @shipment_confirm_request_node)
       @response      = ConfirmResponse.new(raw_response)
