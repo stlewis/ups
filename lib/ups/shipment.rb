@@ -2,7 +2,7 @@ module UPS
 
   class Shipment < Request
 
-    attr_reader :label_image, :html_image, :response_xml, :response, :shipping_errors, :request_xml
+    attr_reader :label_image, :html_image, :response_xml, :response, :shipping_errors, :request_xml, :total_cost
 
     def initialize(credentials, packages = [], options = {}, api_options = {})
       super(credentials, api_options)
@@ -52,6 +52,7 @@ module UPS
       @response      = ConfirmResponse.new(raw_response)
 
       if @response.successful?
+        @total_cost = @response.total_cost.to_i
         @shipment_accept_request_node = RequestXML::ShipmentAcceptRequestNode.new(response.digest)
         raw_response = send_request(api_url + '/ShipAccept', @shipment_accept_request_node)
         @response     = AcceptResponse.new(raw_response)

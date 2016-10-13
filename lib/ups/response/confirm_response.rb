@@ -16,6 +16,10 @@ module UPS
       @xml.at('/ShipmentConfirmResponse/ShipmentDigest').content
     end
 
+    def total_cost
+      @xml.at('/ShipmentConfirmResponse/ShipmentCharges/TotalCharges/MonetaryValue').content
+    end
+
     def error_message
       @xml.at('/ShipmentConfirmResponse/Response/Error/ErrorDescription').content
     end
